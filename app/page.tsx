@@ -1,6 +1,5 @@
 import { CodeSnippets } from '@/components/code-snippets';
-import { GithubIcon } from 'lucide-react';
-
+import { Analytics } from "@vercel/analytics/react"
 export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-900 dark:to-zinc-800">
@@ -17,6 +16,7 @@ export default function Home() {
         </div>
         <CodeSnippets />
       </div>
+      <Analytics />
     </main>
   );
 }
