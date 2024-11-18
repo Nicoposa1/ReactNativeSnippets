@@ -2,157 +2,19 @@
 
 import { useState } from 'react';
 import { Command } from 'cmdk';
-import { Copy, Search, ChevronDown, ChevronUp } from 'lucide-react';
+import { Copy, Search, ChevronDown, ChevronUp, Image } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
-
-// ... snippets array remains the same ...
-const snippets = [
-  {
-    category: 'Navigation',
-    items: [
-      {
-        title: 'Basic Stack Navigation',
-        description: 'A simple stack navigator using React Navigation.',
-        code: `import { createStackNavigator } from '@react-navigation/stack';
-const Stack = createStackNavigator();
-
-function MyStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
-    </Stack.Navigator>
-  );
-}`,
-        libraries: ['@react-navigation/native', '@react-navigation/stack']
-      },
-      {
-        title: 'Bottom Tab Navigation',
-        description: 'Implementing bottom tabs using React Navigation.',
-        code: `import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-const Tab = createBottomTabNavigator();
-
-function MyTabs() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
-    </Tab.Navigator>
-  );
-}`,
-        libraries: ['@react-navigation/native', '@react-navigation/bottom-tabs']
-      }
-    ]
-  },
-  {
-    category: 'Animations',
-    items: [
-      {
-        title: 'Fade In Animation',
-        description: 'A simple fade-in animation using Animated API.',
-        code: `import React, { useRef, useEffect } from 'react';
-import { Animated, View } from 'react-native';
-
-const FadeInView = ({ children }) => {
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 1000,
-      useNativeDriver: true,
-    }).start();
-  }, [fadeAnim]);
-
-  return (
-    <Animated.View style={{ opacity: fadeAnim }}>
-      {children}
-    </Animated.View>
-  );
-};`,
-        libraries: ['react-native']
-      }
-    ]
-  },
-  {
-    category: 'UI Components',
-    items: [
-      {
-        title: 'Custom Button',
-        description: 'A reusable button component with customizable styles.',
-        code: `import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-
-const CustomButton = ({ onPress, title }) => (
-  <TouchableOpacity style={styles.button} onPress={onPress}>
-    <Text style={styles.text}>{title}</Text>
-  </TouchableOpacity>
-);
-
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#007bff',
-    padding: 10,
-    borderRadius: 5,
-  },
-  text: {
-    color: '#fff',
-    textAlign: 'center',
-  },
-});
-
-export default CustomButton;`,
-        libraries: ['react-native']
-      }
-    ]
-  }
-];
-
+import { CodeBlock } from './CodeBlock';
+import { snippets } from '@/lib/data';
 
 interface CodeBlockProps {
   code: string;
   expanded: boolean;
   onToggle: () => void;
   onCopy: () => void;
-}
-
-function CodeBlock({ code, expanded, onToggle, onCopy }: CodeBlockProps) {
-  const preview = code.split('\n').slice(0, 5).join('\n');
-
-  return (
-    <div className="relative">
-      <pre className={`bg-zinc-950 text-zinc-50 p-4 rounded-lg overflow-x-auto ${expanded ? '' : 'max-h-[160px]'}`}>
-        <code className="text-sm">
-          {expanded ? code : preview + '\n...'}
-        </code>
-      </pre>
-      <div className="absolute right-2 top-2 flex gap-2">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onCopy}
-          className="h-8 w-8 bg-zinc-800 hover:bg-zinc-700"
-        >
-          <Copy className="w-4 h-4 text-zinc-400" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onToggle}
-          className="h-8 w-8 bg-zinc-800 hover:bg-zinc-700"
-        >
-          {expanded ? (
-            <ChevronUp className="w-4 h-4 text-zinc-400" />
-          ) : (
-            <ChevronDown className="w-4 h-4 text-zinc-400" />
-          )}
-        </Button>
-      </div>
-    </div>
-  );
 }
 
 export function CodeSnippets() {
