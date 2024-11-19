@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Copy } from "lucide-react";
 
 interface CodeBlockProps {
   code: string;
@@ -12,6 +13,13 @@ interface CodeBlockProps {
 
 export function CodeBlock({ code, title, description, libraries = [] }: CodeBlockProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000); // Reset the copied state after 2 seconds
+  };
 
   return (
     <div className="border rounded-lg p-3 sm:p-4 space-y-3 sm:space-y-4">
@@ -37,6 +45,15 @@ export function CodeBlock({ code, title, description, libraries = [] }: CodeBloc
           className="absolute bottom-2 right-2 text-xs sm:text-sm"
         >
           {isExpanded ? "Show Less" : "Show More"}
+        </Button>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={copyToClipboard}
+          className="absolute top-2 right-2 text-xs sm:text-sm flex items-center"
+        >
+          <Copy className="h-4 w-4 mr-1" />
+          {copied ? "Copied!" : "Copy"}
         </Button>
       </div>
     </div>

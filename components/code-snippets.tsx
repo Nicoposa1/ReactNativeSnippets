@@ -75,26 +75,11 @@ export function CodeSnippets() {
               {category.items.map((snippet, index) => {
                 const snippetId = `${category.category}-${index}`;
                 return (
-                  <Card key={snippetId} className="p-6">
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h3 className="text-xl font-semibold mb-2">{snippet.title}</h3>
-                        <p className="text-zinc-600 dark:text-zinc-400 mb-2">{snippet.description}</p>
-                        <div className="flex flex-wrap gap-2">
-                          {snippet.libraries.map((lib, i) => (
-                            <span key={i} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                              {lib}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    <CodeBlock
-                      code={snippet.code}
-                      title={snippet.title}
-                      description={snippet.description}
-                    />
-                  </Card>
+                  <CodeBlock
+                    code={snippet.code}
+                    title={snippet.title}
+                    description={snippet.description}
+                  />
                 );
               })}
             </div>
