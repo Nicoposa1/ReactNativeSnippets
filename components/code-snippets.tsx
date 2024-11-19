@@ -57,12 +57,12 @@ export function CodeSnippets() {
       </div>
 
       <Tabs value={activeCategory} onValueChange={setActiveCategory}>
-        <TabsList className="w-full justify-start border-b mb-6 space-x-6 pb-2">
+        <TabsList className="w-full justify-start border-b mb-6 space-x-2 sm:space-x-4 lg:space-x-6 pb-2 overflow-x-auto overflow-y-hidden">
           {snippets.map((category) => (
             <TabsTrigger
               key={category.category}
               value={category.category}
-              className="text-lg font-medium data-[state=active]:text-blue-600 dark:data-[state=active]:text-blue-400"
+              className="text-base sm:text-lg font-medium whitespace-nowrap data-[state=active]:text-blue-600 dark:data-[state=active]:text-blue-400"
             >
               {category.category}
             </TabsTrigger>
@@ -91,9 +91,8 @@ export function CodeSnippets() {
                     </div>
                     <CodeBlock
                       code={snippet.code}
-                      expanded={!!expandedCodes[snippetId]}
-                      onToggle={() => toggleExpanded(snippetId)}
-                      onCopy={() => copyToClipboard(snippet.code)}
+                      title={snippet.title}
+                      description={snippet.description}
                     />
                   </Card>
                 );

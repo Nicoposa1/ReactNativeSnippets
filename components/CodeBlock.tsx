@@ -1,44 +1,42 @@
-import { Button } from '@/components/ui/button';
-import { Copy, ChevronDown, ChevronUp } from 'lucide-react';
+"use client";
+
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 interface CodeBlockProps {
   code: string;
-  expanded: boolean;
-  onToggle: () => void;
-  onCopy: () => void;
+  title: string;
+  description: string;
+  libraries?: string[];
 }
 
-export const CodeBlock: React.FC<CodeBlockProps> = ({ code, expanded, onToggle, onCopy }) => {
-
-  const preview = code.split('\n').slice(0, 5).join('\n');
+export function CodeBlock({ code, title, description, libraries = [] }: CodeBlockProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="relative">
-      <pre className={`bg-zinc-950 text-zinc-50 p-4 rounded-lg overflow-x-auto ${expanded ? '' : 'max-h-[160px]'}`}>
-        <code className="text-sm">
-          {expanded ? code : preview + '\n...'}
-        </code>
-      </pre>
-      <div className="absolute right-2 top-2 flex gap-2">
+    <div className="border rounded-lg p-3 sm:p-4 space-y-3 sm:space-y-4">
+      <div>
+        <h3 className="font-medium text-base sm:text-lg">{title}</h3>
+        <p className="text-sm text-muted-foreground mt-1">{description}</p>
+      </div>
+      {libraries.length > 0 && (
+        <div className="text-xs sm:text-sm bg-slate-50 p-2.5 sm:p-3 rounded-lg">
+          <span className="font-medium text-slate-700">Required Libraries: </span>
+          <span className="text-slate-600">{libraries.join(", ")}</span>
+        </div>
+      )}
+      <div className="relative">
+        <pre className={`bg-slate-950 rounded-lg p-3 sm:p-4 overflow-x-auto ${!isExpanded && "max-h-48"}`}>
+          <code className="text-white text-xs sm:text-sm whitespace-pre-wrap break-words">{code}</code>
+        </pre>
+        <div className={`absolute bottom-0 left-0 right-0 ${!isExpanded && "h-24"} bg-gradient-to-t from-slate-950 to-transparent pointer-events-none`} />
         <Button
-          variant="ghost"
-          size="icon"
-          onClick={onCopy}
-          className="h-8 w-8 bg-zinc-800 hover:bg-zinc-700"
+          variant="secondary"
+          size="sm"
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="absolute bottom-2 right-2 text-xs sm:text-sm"
         >
-          <Copy className="w-4 h-4 text-zinc-400" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onToggle}
-          className="h-8 w-8 bg-zinc-800 hover:bg-zinc-700"
-        >
-          {expanded ? (
-            <ChevronUp className="w-4 h-4 text-zinc-400" />
-          ) : (
-            <ChevronDown className="w-4 h-4 text-zinc-400" />
-          )}
+          {isExpanded ? "Show Less" : "Show More"}
         </Button>
       </div>
     </div>
