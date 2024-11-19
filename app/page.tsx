@@ -1,5 +1,7 @@
 import { CodeSnippets } from '@/components/code-snippets';
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
+import { Linkedin } from 'lucide-react';
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-900 dark:to-zinc-800">
@@ -13,6 +15,16 @@ export default function Home() {
               A curated collection of reusable React Native components and patterns
             </p>
           </div>
+          <a
+            href="https://www.linkedin.com/in/nicolasposa/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 px-3 py-1.5 rounded-md text-sm"
+            style={{ backgroundColor: '#0e76a8', color: 'white' }}
+          >
+            <span>Let's connect on LinkedIn</span>
+            <Linkedin className="w-4 h-4" />
+          </a>
         </div>
         <CodeSnippets />
       </div>
